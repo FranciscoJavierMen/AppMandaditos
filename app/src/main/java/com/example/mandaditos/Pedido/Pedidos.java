@@ -1,4 +1,4 @@
-package com.example.mandaditos;
+package com.example.mandaditos.Pedido;
 
 import android.content.Context;
 import android.net.Uri;
@@ -10,9 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mandaditos.R;
 
-public class Mandaderos extends Fragment {
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+public class Pedidos extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -21,12 +21,12 @@ public class Mandaderos extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Mandaderos() {
+    public Pedidos() {
         // Required empty public constructor
     }
 
-    public static Mandaderos newInstance(String param1, String param2) {
-        Mandaderos fragment = new Mandaderos();
+    public static Pedidos newInstance(String param1, String param2) {
+        Pedidos fragment = new Pedidos();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -47,7 +47,7 @@ public class Mandaderos extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mandaderos, container, false);
+        return inflater.inflate(R.layout.fragment_pedidos, container, false);
     }
 
     public void onButtonPressed(Uri uri) {

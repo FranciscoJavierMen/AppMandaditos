@@ -46,10 +46,51 @@
     <style name="cardPedidos" >
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">40dp</item>
+        <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">10dp</item>
-        <item name="android:layout_marginBottom">40dp</item>
+        <item name="android:layout_marginBottom">50dp</item>
+    </style>
+
+    <!--Estilo para botones redondeados-->
+    <style name="btnRounded">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">35dp</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:background">@drawable/btn_rounded</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="btnEnviar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:background">@drawable/btn_enviar_rounded</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <!--Estilo para la caja de texto largo-->
+    <style name="areaText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:lines">6</item>
+        <item name="android:inputType">text|textMultiLine</item>
+        <item name="android:overScrollMode">always</item>
+        <item name="android:scrollbarStyle">insideInset</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:scrollHorizontally">false</item>
+        <item name="android:gravity">top|left</item>
+        <item name="android:background">@drawable/edt_rounded</item>
     </style>
 
 </resources>
