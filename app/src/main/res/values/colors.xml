@@ -9,4 +9,8 @@
 
     <color name="verde">#3ABE42</color>
     <color name="rojo">#E02828</color>
+    <color name="naranja">#FF9800</color>
+    <color name="morado">#9C27B0</color>
+    <color name="amarillo">#FFEB3B</color>
+    <color name="azul">#03A9F4</color>
 </resources>

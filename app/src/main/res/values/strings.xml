@@ -19,4 +19,8 @@
     <string name="ingresa_tu_pedido">Ingresa tu pedido</string>
     <string name="enviar">Enviar</string>
     <string name="direccion">Calle Reforma #663, Col. Centro, Guadalajara , jalisco</string>
+    <string name="pedidos_pendientes">Pedidos pendientes</string>
+    <string name="pedidos_aceptados">Pedidos aceptados</string>
+    <string name="pedidos_finalizados">Pedidos finalizados</string>
+    <string name="pedidos_rechazados">Pedidos rechazados</string>
 </resources>

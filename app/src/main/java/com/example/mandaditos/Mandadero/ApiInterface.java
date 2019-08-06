@@ -8,6 +8,6 @@ import retrofit2.http.GET;
 public interface ApiInterface {
 
 
-    @GET("mandaderos")
+    @GET("mandaderos/")
     Call<List<ListaMandaderos>> getMandaderos();
 }
