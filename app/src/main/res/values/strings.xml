@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Mandaditos</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="buscar">Buscar</string>
+    <string name="historial">Historial</string>
+    <string name="salir">Salir</string>
+    <string name="inicio">Inicio</string>
+    <string name="mandaderos">Mandaderos</string>
+    <string name="perfil">Perfil</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="username">Nombre del usuario</string>
+    <string name="email">Correo electrónico</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis faucibus ultrices. Sed vel eros convallis, eleifend justo in, sagittis lorem. Etiam consequat quam quis sagittis ornare.</string>
+    <string name="seleccionar_mandadero">Seleccionar mandadero</string>
+    <string name="ingresa_tu_pedido">Ingresa tu pedido</string>
+    <string name="enviar">Enviar</string>
+</resources>
