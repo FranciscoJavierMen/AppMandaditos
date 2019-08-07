@@ -16,6 +16,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.mandaditos.R;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class Mandaderos extends Fragment {
@@ -40,6 +45,7 @@ public class Mandaderos extends Fragment {
     private RecyclerView recyclerMandaderos;
     private List<ListaMandaderos> listaMandaderos;
     private AdapterMandaderos adapter;
+    private View v;
 
 
     public Mandaderos() {
@@ -68,44 +74,55 @@ public class Mandaderos extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_mandaderos, container, false);
+        v = inflater.inflate(R.layout.fragment_mandaderos, container, false);
+        refreshLayout = v.findViewById(R.id.swipeMandaderos);
+        cargarDatos();
+        return v;
+    }
 
-        initComponents(v);
-        recyclerMandaderos.hasFixedSize();
-        recyclerMandaderos.setLayoutManager(new LinearLayoutManager(getContext()));
+    private void cargarDatos(){
+        ApiInterface api = ApiMandadero
+                .getMandaderos()
+                .create(ApiInterface.class);
 
-        adapter = new AdapterMandaderos(listaMandaderos);
-        recyclerMandaderos.setAdapter(adapter);
-
-        ApiInterface apiService = ApiMandadero.getMandaderos().create(ApiInterface.class);
-        Call<List<ListaMandaderos>> call = apiService.getMandaderos();
-
+        Call<List<ListaMandaderos>> call = api.getMandaderos();
         call.enqueue(new Callback<List<ListaMandaderos>>() {
             @Override
             public void onResponse(Call<List<ListaMandaderos>> call, Response<List<ListaMandaderos>> response) {
-                
-                if (response.isSuccessful()){
-                    listaMandaderos = response.body();
-                    Toast.makeText(getContext(), "Servidor retorna datos...", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), "Error con el servidor...", Toast.LENGTH_SHORT).show();
-                }
+                refreshLayout.setRefreshing(false);
+                generateDataList();
             }
 
             @Override
             public void onFailure(Call<List<ListaMandaderos>> call, Throwable t) {
-                Log.d("TAG", "Fallo = " +t.getMessage());
-                Toast.makeText(getContext(), "Error con la red, intente de nuevo...", Toast.LENGTH_SHORT).show();
+                refreshLayout.setRefreshing(false);
+                Log.d("TAG", "Error: "+t.toString());
+                Toast.makeText(getContext(), "Error: "+t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-        return v;
+    private void generateDataList() {
+        initComponents(v);
+        adapter = new AdapterMandaderos(listaMandaderos);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerMandaderos.setLayoutManager(layoutManager);
+        recyclerMandaderos.setAdapter(adapter);
     }
 
     private void initComponents(View v) {
-        refreshLayout = v.findViewById(R.id.swipeMandaderos);
         recyclerMandaderos = v.findViewById(R.id.recyclerMandaderos);
 
+        refreshLayout.setColorSchemeResources(
+                R.color.colorPrimary
+        );
+        refreshLayout.setProgressBackgroundColorSchemeResource(R.color.fondoClaro);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                cargarDatos();
+            }
+        });
     }
 
     public void onButtonPressed(Uri uri) {

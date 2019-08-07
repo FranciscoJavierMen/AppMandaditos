@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,8 @@ public class Pedidos extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private SwipeRefreshLayout refreshPedidos;
 
     public Pedidos() {
         // Required empty public constructor
@@ -47,7 +50,15 @@ public class Pedidos extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pedidos, container, false);
+        View v = inflater.inflate(R.layout.fragment_pedidos, container, false);
+
+        refreshPedidos = v.findViewById(R.id.swipePedidos);
+        refreshPedidos.setColorSchemeResources(
+                R.color.verde,
+                R.color.azul,
+                R.color.amarillo
+        );
+        return  v;
     }
 
     public void onButtonPressed(Uri uri) {
