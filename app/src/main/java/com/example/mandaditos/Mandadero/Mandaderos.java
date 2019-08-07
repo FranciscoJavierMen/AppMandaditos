@@ -16,9 +16,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.mandaditos.R;
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +23,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class Mandaderos extends Fragment {
@@ -45,8 +40,6 @@ public class Mandaderos extends Fragment {
     private RecyclerView recyclerMandaderos;
     private List<ListaMandaderos> listaMandaderos;
     private AdapterMandaderos adapter;
-    private View v;
-
 
     public Mandaderos() {
         // Required empty public constructor
@@ -73,9 +66,23 @@ public class Mandaderos extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        v = inflater.inflate(R.layout.fragment_mandaderos, container, false);
+
+        listaMandaderos = new ArrayList<>();
+        View v = inflater.inflate(R.layout.fragment_mandaderos, container, false);
         refreshLayout = v.findViewById(R.id.swipeMandaderos);
+        recyclerMandaderos = v.findViewById(R.id.recyclerMandaderos);
+
+        refreshLayout.setColorSchemeResources(
+                R.color.colorPrimary
+        );
+        refreshLayout.setProgressBackgroundColorSchemeResource(R.color.fondoClaro);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                cargarDatos();
+            }
+        });
+
         cargarDatos();
         return v;
     }
@@ -90,7 +97,8 @@ public class Mandaderos extends Fragment {
             @Override
             public void onResponse(Call<List<ListaMandaderos>> call, Response<List<ListaMandaderos>> response) {
                 refreshLayout.setRefreshing(false);
-                generateDataList();
+                assert response.body() != null;
+                generateDataList(response.body());
             }
 
             @Override
@@ -102,28 +110,14 @@ public class Mandaderos extends Fragment {
         });
     }
 
-    private void generateDataList() {
-        initComponents(v);
-        adapter = new AdapterMandaderos(listaMandaderos);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+    private void generateDataList(List<ListaMandaderos> listaMandaderos) {
+        adapter = new AdapterMandaderos(listaMandaderos, getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerMandaderos.setLayoutManager(layoutManager);
         recyclerMandaderos.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
-    private void initComponents(View v) {
-        recyclerMandaderos = v.findViewById(R.id.recyclerMandaderos);
-
-        refreshLayout.setColorSchemeResources(
-                R.color.colorPrimary
-        );
-        refreshLayout.setProgressBackgroundColorSchemeResource(R.color.fondoClaro);
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                cargarDatos();
-            }
-        });
-    }
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

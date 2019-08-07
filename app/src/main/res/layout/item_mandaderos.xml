@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     style="@style/Widget.MaterialComponents.CardView"
-    app:cardElevation="4dp"
+    app:cardElevation="2dp"
     app:cardPreventCornerOverlap="true"
     app:cardCornerRadius="6dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.github.pavlospt.roundedletterview.RoundedLetterView
-            android:id="@+id/circleIcon"
+            android:id="@+id/circleIconM"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
@@ -30,18 +37,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtNombreServicio"
+            android:id="@+id/txtNombreServicioM"
             style="@style/textTitleItems"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:text="Nombre del servicio"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/circleIcon"
+            app:layout_constraintStart_toEndOf="@+id/circleIconM"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imgStatus"
+            android:id="@+id/imgStatusM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

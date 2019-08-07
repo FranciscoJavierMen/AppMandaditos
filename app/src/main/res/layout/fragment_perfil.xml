@@ -294,8 +294,8 @@
                     app:layout_constraintVertical_bias="0.507" />
 
                 <com.github.pavlospt.roundedletterview.RoundedLetterView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="52dp"
                     android:layout_marginBottom="8dp"

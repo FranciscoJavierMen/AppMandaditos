@@ -1,34 +1,38 @@
 package com.example.mandaditos.Mandadero;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mandaditos.R;
 import com.github.pavlospt.roundedletterview.RoundedLetterView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterMandaderos extends RecyclerView.Adapter<AdapterMandaderos.ViewHolder> {
 
     private List<ListaMandaderos> listaMandaderos;
+    private Context context;
 
-    public AdapterMandaderos(List<ListaMandaderos> listaMandaderos) {
+    public AdapterMandaderos(List<ListaMandaderos> listaMandaderos, Context context) {
         this.listaMandaderos = listaMandaderos;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_mandaderos, parent, false);
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        View v = layoutInflater.inflate(R.layout.item_mandaderos, parent, false);
         return new ViewHolder(v);
     }
 
@@ -38,18 +42,20 @@ public class AdapterMandaderos extends RecyclerView.Adapter<AdapterMandaderos.Vi
 
         holder.nombre.setText(modelo.getNombre());
         holder.icono.setTitleText(extraerLetra(modelo.getNombre()));
-
-        if (modelo.getEstado().equals("disponible")){
-            holder.estado.setColorFilter(R.color.verde);
-        }
         if (modelo.getEstado().equals("ocupado")){
-            holder.estado.setColorFilter(R.color.rojo);
+            holder.estado.setColorFilter(ContextCompat.getColor(context, R.color.rojo), android.graphics.PorterDuff.Mode.MULTIPLY);
+        }
+        if (modelo.getEstado().equals("disponible")){
+            holder.estado.setColorFilter(ContextCompat.getColor(context, R.color.verde), android.graphics.PorterDuff.Mode.MULTIPLY);
         }
     }
 
 
     private String extraerLetra(String nombre){
-        return String.valueOf(nombre.charAt(0));
+        if (!String.valueOf(nombre).isEmpty()){
+            return String.valueOf(nombre.charAt(0));
+        }
+        return "M";
     }
 
     @Override
@@ -69,9 +75,9 @@ public class AdapterMandaderos extends RecyclerView.Adapter<AdapterMandaderos.Vi
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            nombre = itemView.findViewById(R.id.txtNombreServicio);
-            estado = itemView.findViewById(R.id.imgStatus);
-            icono = itemView.findViewById(R.id.circleIcon);
+            nombre = itemView.findViewById(R.id.txtNombreServicioM);
+            estado = itemView.findViewById(R.id.imgStatusM);
+            icono = itemView.findViewById(R.id.circleIconM);
         }
     }
 }

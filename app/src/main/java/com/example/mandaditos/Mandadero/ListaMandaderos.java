@@ -7,10 +7,10 @@ public class ListaMandaderos {
     @SerializedName("id")
     private Integer id;
 
-    @SerializedName("nombre")
+    @SerializedName("name")
     private String nombre;
 
-    @SerializedName("estado")
+    @SerializedName("status")
     private String estado;
 
 
