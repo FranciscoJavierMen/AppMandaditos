@@ -23,4 +23,5 @@
     <string name="pedidos_aceptados">Pedidos aceptados</string>
     <string name="pedidos_finalizados">Pedidos finalizados</string>
     <string name="pedidos_rechazados">Pedidos rechazados</string>
+    <string name="title_activity_detalles_pedido">DetallesPedido</string>
 </resources>

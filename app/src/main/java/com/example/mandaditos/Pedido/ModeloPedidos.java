@@ -1,14 +1,27 @@
 package com.example.mandaditos.Pedido;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class ModeloPedidos {
 
+    @SerializedName("description")
     private String descripcion;
+
+    @SerializedName("date")
     private Date fecha;
+
+    @SerializedName("ubication_origin")
     private String origen;
+
+    @SerializedName("ubication_destiny")
     private String destino;
+
+    @SerializedName("satae")
     private String estado;
+
+    @SerializedName("cliente_id")
     private Integer idCliente;
 
     public ModeloPedidos(String descripcion, Date fecha, String origen, String destino, String estado, Integer idCliente) {
