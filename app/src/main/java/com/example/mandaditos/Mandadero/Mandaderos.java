@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.mandaditos.R;
+import com.example.mandaditos.Services.ApiInterface;
+import com.example.mandaditos.Services.ApiMandadero;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,7 @@ public class Mandaderos extends Fragment {
     //Elementos de las vistas
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView recyclerMandaderos;
-    private List<ListaMandaderos> listaMandaderos;
+    private List<ModeloMandaderos> modeloMandaderos;
     private AdapterMandaderos adapter;
 
     public Mandaderos() {
@@ -67,7 +69,7 @@ public class Mandaderos extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        listaMandaderos = new ArrayList<>();
+        modeloMandaderos = new ArrayList<>();
         View v = inflater.inflate(R.layout.fragment_mandaderos, container, false);
         refreshLayout = v.findViewById(R.id.swipeMandaderos);
         recyclerMandaderos = v.findViewById(R.id.recyclerMandaderos);
@@ -92,17 +94,17 @@ public class Mandaderos extends Fragment {
                 .getMandaderos()
                 .create(ApiInterface.class);
 
-        Call<List<ListaMandaderos>> call = api.getMandaderos();
-        call.enqueue(new Callback<List<ListaMandaderos>>() {
+        Call<List<ModeloMandaderos>> call = api.getMandaderos();
+        call.enqueue(new Callback<List<ModeloMandaderos>>() {
             @Override
-            public void onResponse(Call<List<ListaMandaderos>> call, Response<List<ListaMandaderos>> response) {
+            public void onResponse(Call<List<ModeloMandaderos>> call, Response<List<ModeloMandaderos>> response) {
                 refreshLayout.setRefreshing(false);
                 assert response.body() != null;
                 generateDataList(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<ListaMandaderos>> call, Throwable t) {
+            public void onFailure(Call<List<ModeloMandaderos>> call, Throwable t) {
                 refreshLayout.setRefreshing(false);
                 Log.d("TAG", "Error: "+t.toString());
                 Toast.makeText(getContext(), "Error: "+t.getMessage(), Toast.LENGTH_SHORT).show();
@@ -110,8 +112,8 @@ public class Mandaderos extends Fragment {
         });
     }
 
-    private void generateDataList(List<ListaMandaderos> listaMandaderos) {
-        adapter = new AdapterMandaderos(listaMandaderos, getContext());
+    private void generateDataList(List<ModeloMandaderos> modeloMandaderos) {
+        adapter = new AdapterMandaderos(modeloMandaderos, getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerMandaderos.setLayoutManager(layoutManager);
         recyclerMandaderos.setAdapter(adapter);

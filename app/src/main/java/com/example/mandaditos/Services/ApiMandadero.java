@@ -1,4 +1,4 @@
-package com.example.mandaditos.Mandadero;
+package com.example.mandaditos.Services;
 
 import android.util.Log;
 
@@ -9,16 +9,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiMandadero {
 
-    public static String BASE_URL ="http://192.168.2.10/MandaditosRest/public/api/";
+    public static String BASE_URL ="http://192.168.1.79/MandaditosRest/public/api/";
 
     private static Retrofit retrofit;
 
     public static Retrofit getMandaderos(){
         if (retrofit == null){
 
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(logging)
+                    .build();
 
             retrofit = new retrofit2.Retrofit.Builder()
                     .baseUrl(BASE_URL)

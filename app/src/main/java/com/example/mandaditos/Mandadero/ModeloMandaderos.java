@@ -2,7 +2,7 @@ package com.example.mandaditos.Mandadero;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ListaMandaderos {
+public class ModeloMandaderos {
 
     @SerializedName("id")
     private Integer id;
@@ -14,13 +14,13 @@ public class ListaMandaderos {
     private String estado;
 
 
-
-    public ListaMandaderos(Integer id, String nombre) {
+    public ModeloMandaderos(Integer id, String nombre, String estado) {
         this.id = id;
         this.nombre = nombre;
+        this.estado = estado;
     }
 
-    public ListaMandaderos(){}
+    public ModeloMandaderos(){}
 
     public Integer getId() {
         return id;

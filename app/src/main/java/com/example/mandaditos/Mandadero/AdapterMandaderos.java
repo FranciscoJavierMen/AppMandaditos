@@ -1,16 +1,16 @@
 package com.example.mandaditos.Mandadero;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.ImageViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mandaditos.R;
@@ -20,11 +20,11 @@ import java.util.List;
 
 public class AdapterMandaderos extends RecyclerView.Adapter<AdapterMandaderos.ViewHolder> {
 
-    private List<ListaMandaderos> listaMandaderos;
+    private List<ModeloMandaderos> modeloMandaderos;
     private Context context;
 
-    public AdapterMandaderos(List<ListaMandaderos> listaMandaderos, Context context) {
-        this.listaMandaderos = listaMandaderos;
+    public AdapterMandaderos(List<ModeloMandaderos> modeloMandaderos, Context context) {
+        this.modeloMandaderos = modeloMandaderos;
         this.context = context;
     }
 
@@ -38,18 +38,23 @@ public class AdapterMandaderos extends RecyclerView.Adapter<AdapterMandaderos.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final ListaMandaderos modelo = listaMandaderos.get(position);
+        final ModeloMandaderos modelo = modeloMandaderos.get(position);
 
         holder.nombre.setText(modelo.getNombre());
         holder.icono.setTitleText(extraerLetra(modelo.getNombre()));
-        if (modelo.getEstado().equals("ocupado")){
-            holder.estado.setColorFilter(ContextCompat.getColor(context, R.color.rojo), android.graphics.PorterDuff.Mode.MULTIPLY);
-        }
+        holder.icono.setBackgroundColor(Color.rgb(randomNumber(), randomNumber(), randomNumber()));
+
         if (modelo.getEstado().equals("disponible")){
-            holder.estado.setColorFilter(ContextCompat.getColor(context, R.color.verde), android.graphics.PorterDuff.Mode.MULTIPLY);
+            ImageViewCompat.setImageTintList(holder.estado, ContextCompat.getColorStateList(context, R.color.verde));
+        }
+        if (modelo.getEstado().equals("ocupado")){
+            ImageViewCompat.setImageTintList(holder.estado, ContextCompat.getColorStateList(context, R.color.naranja));
         }
     }
 
+    private int randomNumber(){
+        return (int)(Math.random()*((255-1)+1))+1;
+    }
 
     private String extraerLetra(String nombre){
         if (!String.valueOf(nombre).isEmpty()){
@@ -60,8 +65,8 @@ public class AdapterMandaderos extends RecyclerView.Adapter<AdapterMandaderos.Vi
 
     @Override
     public int getItemCount() {
-        if (listaMandaderos != null){
-            return listaMandaderos.size();
+        if (modeloMandaderos != null){
+            return modeloMandaderos.size();
         }
         return 0;
     }
